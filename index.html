@@ -277,7 +277,7 @@ secSel.onchange=function(){showSec(secSel.value);try{localStorage.setItem(SK,sec
 function clean(v){return String(v==null?"":v).replace(/[|;]/g,",")}
 function buildHash(){
  var q=new URLSearchParams();
- var m={date:S.date,ref:S.ref,title:S.title,to:S.to,toaddr:S.toAddr,attn:S.attn,desc:S.desc,cur:S.cur,taxlabel:S.taxLabel,taxrate:S.taxRate,due:S.due,foot:S.foot};
+ var m={date:S.date,ref:S.ref,title:S.title,name:S.name,email:S.email,phone:S.phone,addr:S.addr,to:S.to,toaddr:S.toAddr,attn:S.attn,desc:S.desc,cur:S.cur,taxlabel:S.taxLabel,taxrate:S.taxRate,due:S.due,payhead:S.payHead,payname:S.payName,acct:S.acct,sort:S.sort,bank:S.bank,taxhead:S.msgHead,utr:S.utr,taxnote:S.message,foot:S.foot};
  Object.keys(m).forEach(function(k){if(String(m[k]||"").trim()!=="")q.set(k,m[k])});
  if(S.showAmt)q.set("rate","1");
  q.set("items",S.items.map(function(i){return [clean(i.l),clean(i.q),clean(i.r)].join("|")}).join(";"));
@@ -286,7 +286,7 @@ function buildHash(){
 function applyHash(){
  var h=location.hash.replace(/^#/,"");if(!h)return;
  var q;try{q=new URLSearchParams(h)}catch(e){return}
- var map={date:"date",ref:"ref",title:"title",to:"to",toaddr:"toAddr",attn:"attn",desc:"desc",cur:"cur",taxlabel:"taxLabel",taxrate:"taxRate",due:"due",foot:"foot"};
+ var map={date:"date",ref:"ref",title:"title",name:"name",email:"email",phone:"phone",addr:"addr",to:"to",toaddr:"toAddr",attn:"attn",desc:"desc",cur:"cur",taxlabel:"taxLabel",taxrate:"taxRate",due:"due",payhead:"payHead",payname:"payName",acct:"acct",sort:"sort",bank:"bank",taxhead:"msgHead",utr:"utr",taxnote:"message",foot:"foot"};
  var any=false;
  Object.keys(map).forEach(function(k){if(q.has(k)){S[map[k]]=q.get(k).replace(/\\n/g,"\n");any=true}});
  if(q.has("rate")){S.showAmt=q.get("rate")==="1";any=true}
